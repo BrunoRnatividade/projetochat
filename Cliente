@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 public class Cliente extends Thread {
-    // parte que controla a recepção de mensagens do cliente
+    // parte que controla a recepÃ§Ã£o de mensagens do cliente
     private Socket conexao;
     // construtor que recebe o socket do cliente
     private Cliente(Socket socket) {
@@ -19,7 +19,7 @@ public class Cliente extends Thread {
 			// conecta a IP do Servidor, Porta
             Socket socket = new Socket("127.0.0.1", 5555);
             //Instancia do atributo saida, obtem os objetos que permitem 
-			// controlar o fluxo de comunicação
+			// controlar o fluxo de comunicaÃ§Ã£o
             PrintStream saida = new PrintStream(socket.getOutputStream());
             BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
             System.out.print("Digite seu nome: ");
@@ -33,7 +33,7 @@ public class Cliente extends Thread {
             String msg;
             while (true)
             {
-                // cria linha para digitação da mensagem e a armazena na variavel msg
+                // cria linha para digitaÃ§Ã£o da mensagem e a armazena na variavel msg
                 System.out.print("Mensagem > ");
                 msg = teclado.readLine();
                 // envia a mensagem para o servidor
@@ -43,11 +43,11 @@ public class Cliente extends Thread {
             System.out.println("Falha na Conexao... .. ." + " IOException: " + e);
         }
     }
-    // execução da thread
+    // execuÃ§Ã£o da thread
     public void run()
     {
         try {
-            //recebe mensagens de outro cliente através do servidor
+            //recebe mensagens de outro cliente atravÃ©s do servidor
             BufferedReader entrada = 
 				new BufferedReader(new InputStreamReader(this.conexao.getInputStream()));
             //cria variavel de mensagem
@@ -59,7 +59,7 @@ public class Cliente extends Thread {
                 //se a mensagem contiver dados, passa pelo if, 
 				// caso contrario cai no break e encerra a conexao
                 if (msg == null) {
-                    System.out.println("Conexão encerrada!");
+                    System.out.println("ConexÃ£o encerrada!");
                     System.exit(0);
                 }
                 System.out.println();
@@ -69,7 +69,7 @@ public class Cliente extends Thread {
                 System.out.print("Responder > ");
             }
         } catch (IOException e) {
-            // caso ocorra alguma exceção de E/S, mostra qual foi.
+            // caso ocorra alguma exceÃ§Ã£o de E/S, mostra qual foi.
             System.out.println("Ocorreu uma Falha... .. ." + 
 				" IOException: " + e);
         }
