@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class Servidor extends Thread {
-	// Parte que controla as conexıes por meio de threads.
+	// Parte que controla as conex√µes por meio de threads.
 	private static Vector CLIENTES;
 	// socket deste cliente
 	private Socket conexao;
@@ -25,19 +25,19 @@ public class Servidor extends Thread {
 		this.conexao = socket;
 	}
 
-	// testa se nomes s„o iguais, se for retorna true
+	// testa se nomes s√£o iguais, se for retorna true
 	public boolean armazena(String newName) {
 		// System.out.println(LISTA_DE_NOMES);
 		for (int i = 0; i < LISTA_DE_NOMES.size(); i++) {
 			if (LISTA_DE_NOMES.get(i).equals(newName))
 				return true;
 		}
-		// adiciona na lista apenas se n„o existir
+		// adiciona na lista apenas se n√£o existir
 		LISTA_DE_NOMES.add(newName);
 		return false;
 	}
 
-	// remove da lista os CLIENTES que j· deixaram o chat
+	// remove da lista os CLIENTES que j√° deixaram o chat
 	public void remove(String oldName) {
 		for (int i = 0; i < LISTA_DE_NOMES.size(); i++) {
 			if (LISTA_DE_NOMES.get(i).equals(oldName))
@@ -56,29 +56,29 @@ public class Servidor extends Thread {
 			while (true) {
 
 				// aguarda algum cliente se conectar.
-				// A execuÁ„o do servidor fica bloqueada na chamada do mÈtodo
+				// A execu√ß√£o do servidor fica bloqueada na chamada do m√©todo
 				// accept da
-				// classe ServerSocket atÈ que algum cliente se conecte ao
+				// classe ServerSocket at√© que algum cliente se conecte ao
 				// servidor.
-				// O prÛprio mÈtodo desbloqueia e retorna com um objeto da
+				// O pr√≥prio m√©todo desbloqueia e retorna com um objeto da
 				// classe Socket
 				Socket conexao = server.accept();
-				// cria uma nova thread para tratar essa conex„o
+				// cria uma nova thread para tratar essa conex√£o
 				Thread t = new Servidor(conexao);
 				t.start();
-				// voltando ao loop, esperando mais alguÈm se conectar.
+				// voltando ao loop, esperando mais algu√©m se conectar.
 			}
 		} catch (IOException e) {
-			// caso ocorra alguma excess„o de E/S, mostre qual foi.
+			// caso ocorra alguma excess√£o de E/S, mostre qual foi.
 			System.out.println("IOException: " + e);
 		}
 	}
 
-	// execuÁ„o da thread
+	// execu√ß√£o da thread
 	public void run()
     {
         try {
-            // objetos que permitem controlar fluxo de comunicaÁ„o que vem do cliente
+            // objetos que permitem controlar fluxo de comunica√ß√£o que vem do cliente
             BufferedReader entrada = 
 				new BufferedReader(new InputStreamReader(this.conexao.getInputStream()));
             
@@ -96,7 +96,7 @@ public class Servidor extends Thread {
                //mostra o nome do cliente conectado ao servidor
                System.out.println(this.nomeCliente + " : Conectado ao Servidor!   "  +  " Porta : "+ conexao.getLocalPort() + " IP: " + conexao.getInetAddress() );
             }
-            //igual a null encerra a execuÁ„o
+            //igual a null encerra a execu√ß√£o
             if (this.nomeCliente == null) {
                 return;
             }
@@ -107,8 +107,8 @@ public class Servidor extends Thread {
   
          
            
-            // Verificar se linha È null (conex„o encerrada)
-            // Se n„o for nula, mostra a troca de mensagens entre os CLIENTES
+            // Verificar se linha √© null (conex√£o encerrada)
+            // Se n√£o for nula, mostra a troca de mensagens entre os CLIENTES
             while (msg != "Fim" && !(msg.trim().equals("Fim")))
             {
                 // reenvia a linha para todos os CLIENTES conectados
@@ -133,7 +133,7 @@ public class Servidor extends Thread {
         
  
         } catch (IOException e) {
-            // Caso ocorra alguma excess„o de E/S, mostre qual foi.
+            // Caso ocorra alguma excess√£o de E/S, mostre qual foi.
             System.out.println("Cliente Desconectado : " + this.nomeCliente);
             
           
@@ -141,13 +141,13 @@ public class Servidor extends Thread {
         
     }
 
-	// enviar uma mensagem para todos, menos para o prÛprio
+	// enviar uma mensagem para todos, menos para o pr√≥prio
 	public void sendToAll(PrintStream saida, String acao, String msg) throws IOException {
 		Enumeration e = CLIENTES.elements();
 		while (e.hasMoreElements()) {
-			// obtÈm o fluxo de saÌda de um dos CLIENTES
+			// obt√©m o fluxo de sa√≠da de um dos CLIENTES
 			PrintStream chat = (PrintStream) e.nextElement();
-			// envia para todos, menos para o prÛprio usu·rio
+			// envia para todos, menos para o pr√≥prio usu√°rio
 			if (chat != null) {
 				chat.println(this.nomeCliente + acao + msg);
 			}
